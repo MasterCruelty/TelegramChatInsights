@@ -1,2 +1,44 @@
-# TelegramChatInsights
-A simple userbot to show some data about your chats on Telegram.
+![License](https://img.shields.io/github/license/MasterCruelty/telegramchatinsights)
+[![image](https://img.shields.io/github/stars/MasterCruelty/telegramchatinsights)](https://github.com/MasterCruelty/telegramchatinsights/stargazers)
+[![image](https://img.shields.io/github/forks/MasterCruelty/telegramchatinsights)](https://github.com/MasterCruelty/telegramchatinsights/network/members)
+![CodeSize](https://img.shields.io/github/languages/code-size/MasterCruelty/telegramchatinsights)
+[![image](https://img.shields.io/github/issues/MasterCruelty/telegramchatinsights)](https://github.com/MasterCruelty/telegramchatinsights/issues)
+![image](https://img.shields.io/github/languages/top/MasterCruelty/telegramchatinsights)
+![image](https://img.shields.io/github/commit-activity/w/MasterCruelty/telegramchatinsights)
+![image](https://img.shields.io/github/contributors/MasterCruelty/telegramchatinsights)
+
+# Telegram Chat Insights
+
+# How to setup
+
+The correct way to setup this bot is to compile the file  ```config.json```. So it's necessary to have these data:
+
+* Telegram api keys: ```api_id``` e ```api_hash```. You can generate them [here](https://my.telegram.org/apps)
+* Telegram data of the owner of the bot: ```id_super_admin```.
+* The path where is the .db file: ```path_db```.
+* The session name: ```session_name```.
+* Name of super admin commands: ```super_admin_commands```.
+
+Name of commands to put inside ```config.json``` can be copied from source code or renamed inside source code and then copied in json file.	
+
+### How the userbot's commands works
+
+The features of the commands are explained inside ```help.json```. It is the file which is used by the userbot to reply at ```/help <command name>```.
+
+### How the admin/super commands works
+
+* register a new chat: ```/setchat``` <id_user>
+* delete a chat: ```/delchat``` <id_user>
+* How to list all user registered: ```/listchat``` 
+* How to show ho many chats are registered: ```/allchat```
+* check if the bot is online: ```/ping```
+
+### Dependencies
+
+* Pyrogram
+* peewee
+
+### External projects used
+
+* [Pyrogram](https://github.com/pyrogram/pyrogram)
+* [Peewee](https://github.com/coleifer/peewee)
