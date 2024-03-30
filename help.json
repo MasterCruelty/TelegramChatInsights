@@ -1,0 +1,4 @@
+{
+	"insights":"**/piechart ** => It sends a piechart of your personal chats message count.",
+	"default": "Cerca un comando in particolare come ad esempio:\n /help 'comando'\n__Comandi: insights.__"
+}
