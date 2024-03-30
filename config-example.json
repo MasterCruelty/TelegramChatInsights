@@ -1,0 +1,10 @@
+{
+	"api_id": "YOUR API ID",
+	"api_hash": "YOUR API HASH",
+	"id_super_admin": "ID_USER;NAME_USER;USERNAME_USER",
+	"path_db":"YOUR PATH/DATABASE.db",
+	"session_name":"YOUR SESSION NAME",
+	"commands":{
+		"super_admin_commands":"SUPER_COMMAND1;SUPER_COMMAND2;SUPER_COMMAND3;SUPER_COMMAND_N"
+	}
+}
