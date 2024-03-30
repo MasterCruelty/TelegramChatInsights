@@ -26,11 +26,11 @@ def print_updates(client,message):
     username = get_username(message) 
     messaggio = get_text_message(message)
 
-    #funzionalità super admin
+    #super admin detect commands
     cmd_super = comandi_super.split(";")
     match = messaggio.split(" ")
     if match[0] in cmd_super and isSuper(utente):
-    #rappresentazione grafica del messaggio corrente sul terminale
+    #log incoming commands
         visualizza(chat,nome_chat,utente,nome_utente,username,messaggio)
         query = parser(messaggio)
         fetch_super_command(match[0],query,client,message)
