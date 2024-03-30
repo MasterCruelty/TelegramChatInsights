@@ -49,6 +49,13 @@ def ping(client,message):
     return ugc.sendMessage(client,message,"pong __TelegramChatInsights is online__")
 
 """
+Restarting app
+"""
+def restart(client,message):
+    ugc.sendMessage(client,message,"__Restarting...\n\nI'll be back in ten seconds.__")
+    os.execl(sys.executable,sys.executable,*sys.argv)
+
+"""
 documentation of commands directly in Telegram
 """
 def help(query,client,message):
