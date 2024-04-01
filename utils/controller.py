@@ -1,6 +1,6 @@
 from pyrogram import Client
 import utils_config
-import modules.insights
+import modules.insights 
 import utils.dbfunctions as udb
 import utils.sysfunctions as usys
 import utils.get_config as ugc
@@ -12,7 +12,7 @@ dictionary_super = {'/setchat'    : udb.set_user,
                     '/listchat'   : udb.list_user,
                     '/allchat'    : udb.all_user,
                     '/restart'    : usys.restart,
-                    '/piechart'   : udb.set_admin}
+                    '/piechart'   : modules.insights.piechart}
 
 """
 Super Admin fetch command and execute
