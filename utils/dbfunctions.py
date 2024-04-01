@@ -19,13 +19,16 @@ db.connect()
 questa funzione fa una select dalla tabella User e restituisce gli id di tutti gli utenti registratii dentro una lista di int
 """
 
-def list_id_users():
-    result = []
-    query = User.select()
-    query += Admin.select()
-    for user in query:
-        result.append(user.id_user)
-    return result
+def fetch_chat_info():
+    result_id = []
+    result_name = []
+    result_message_count = []
+    query = PersonalChats.select()
+    for chat in query:
+        result_id.append(chat.id_user)
+        result_name.append(chat.first_name)
+        result_message_count.append(chat.message_count)
+    return result_id,result_name,result_message_count
 
 """
 Questa funzione controlla se un certo utente Telegram è SuperAdmin
