@@ -21,8 +21,10 @@ class User(BaseModel):
 
 class PersonalChats(BaseModel):
     id_chat = IntegerField(unique = True)
-    name = CharField()
+    first_name = CharField()
     username = CharField()
+    date = DateTimeField()
+    message_count = IntegerField()
 
 db.connect()
 db.create_tables([User])
