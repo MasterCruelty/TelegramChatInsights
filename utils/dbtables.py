@@ -27,11 +27,8 @@ class PersonalChats(BaseModel):
     message_count = IntegerField()
 
 db.connect()
-db.create_tables([User])
+db.create_tables([User,PersonalChats])
 
-#inizializzo il valore di stopmsg a valore di default False
-stop = Stopmsg(value = False)
-stop.save()
 #Inizializzo il super admin da file di configurazione
 overlord = User(id_user = id_super_admin[0], name = id_super_admin[1], username = id_super_admin[2])
 try:
