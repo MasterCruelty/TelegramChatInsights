@@ -23,6 +23,9 @@ class PersonalChats(BaseModel):
     id_chat = IntegerField(unique = True)
     first_name = CharField()
     username = CharField()
+
+class DataChats(BaseModel):
+    id_chat = ForeignKeyField(PersonalChats)
     date = DateTimeField()
     message_count = IntegerField()
 
