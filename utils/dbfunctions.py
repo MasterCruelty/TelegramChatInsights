@@ -88,8 +88,11 @@ def fetch_chat_info():
     result_id = []
     result_name = []
     result_message_count = []
-    query = PersonalChats.select()
-    for chat in query:
+    query_sql = (DataChats
+                 .select()
+                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat))
+                 .order_by(DataChats.message_count.desc()))
+    for chat in query_sql:
         result_id.append(chat.id_user)
         result_name.append(chat.first_name)
         result_message_count.append(chat.message_count)
