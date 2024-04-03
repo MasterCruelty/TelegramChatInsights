@@ -11,11 +11,9 @@ import os
 Return messages count total of the current chat
 """
 @Client.on_message()
-def count_messages(client,message):
-    chat = ugc.get_chat(message)
-    totmsg = client.search_messages_count(chat)
-    result = "Total messages in this chat: " + str(totmsg)
-    return ugc.sendMessage(client,message,result)
+def count_messages(client,message,query):
+    totmsg = client.search_messages_count(query)
+    return totmsg
 
 """
 Return on message the id of the current chat
