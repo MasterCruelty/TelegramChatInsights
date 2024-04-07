@@ -31,7 +31,7 @@ def print_updates(client,message):
     match = messaggio.split(" ")
     if match[0] in cmd_super and isSuper(utente):
     #log incoming commands
-        visualizza(chat,nome_chat,utente,nome_utente,username,messaggio)
+        visualizza(chat,nome_chat,utente,nome_utente,username,messaggio,client)
         query = parser(messaggio)
         fetch_super_command(match[0],query,client,message)
         return
