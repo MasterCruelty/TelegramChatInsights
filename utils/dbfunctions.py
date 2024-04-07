@@ -4,6 +4,7 @@ from utils.dbtables import *
 from pyrogram import Client
 from utils.get_config import *
 import utils.sysfunctions as usys  
+import datetime
 
 #Inizio della connessione con il db
 db.connect()
@@ -17,7 +18,8 @@ def set_chat(client,message,query):
     username_chat = "@" + str(json_user.username)
     chat = PersonalChats(id_chat = userid,first_name = name,username = username_chat)
     messages = usys.count_messages(client,message,userid)
-    chat_data = DataChats(id_chat = userid, Date = datetime.datetime.now(), message_count = messages)  
+    date = datetime.datetime.now()
+    chat_data = DataChats(id_chat = userid, Date = date, message_count = messages)  
     try:
         chat.save()
     except:
@@ -27,6 +29,8 @@ def set_chat(client,message,query):
         result = "Chat " + str(PersonalChats.id_chat) + " saved!"
     return sendMessage(client,message,result)
 
+
+#date = datetime.datetime.now().strftime('%d-%m-%Y')
 """
     Delete a personal chat from db
 """ 
@@ -43,7 +47,8 @@ def del_chat(client,message,query):
 """
 def update_chat_data(client,message,query):
     updated_messages = usys.count_messages(client,message,query)
-    chat_data = DataChats(id_chat = query,Date = datetime.datetime.now(),message_count= updated_messages)
+    date = datetime.datetime.now()
+    chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
     chat_data.save()
 
 """
@@ -65,9 +70,9 @@ def force_update_chat_data(client,message,query):
 """ 
 def list_chat(client,message,query=""):
     result = "List of saved chats:\n\n"
-    query = PersonalChats.select()
-    for user in query:
-        result += str(PersonalChats.id_chat) + ";" + PersonalChats.first_name + ";" + PersonalChats.username + "\n"
+    query_sql = PersonalChats.select()
+    for user in query_sql:
+        result += str(user.id_chat) + ";" + str(user.first_name) + ";" + str(user.username) + "\n"
     return sendMessage(client,message,result)
 
 """
@@ -76,27 +81,28 @@ def list_chat(client,message,query=""):
 def all_chat(client,message,query=""):
     result = "Saved chats: "
     count = 0
-    query = PersonalChats.select()
-    for user in query:
+    query_sql = PersonalChats.select()
+    for user in query_sql:
         count += 1
     result +="__" + str(count) + "__"
     return sendMessage(client,message,result)
+
 """
 questa funzione fa una select dalla tabella User e restituisce gli id di tutti gli utenti registratii dentro una lista di int
+clipboard:
+query_sql = (DataChats
+                 .select()
+                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat))
+                 .order_by(DataChats.message_count.desc()))
 """
 def fetch_chat_info():
     result_id = []
     result_name = []
-    result_message_count = []
-    query_sql = (DataChats
-                 .select()
-                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat))
-                 .order_by(DataChats.message_count.desc()))
+    query_sql = PersonalChats.select()
     for chat in query_sql:
-        result_id.append(chat.id_user)
+        result_id.append(chat.id_chat)
         result_name.append(chat.first_name)
-        result_message_count.append(chat.message_count)
-    return result_id,result_name,result_message_count
+    return result_id,result_name
 
 """
 Questa funzione controlla se un certo utente Telegram è SuperAdmin
