@@ -3,7 +3,7 @@ sys.path.append(sys.path[0] + "/..")
 from utils.dbtables import *
 from pyrogram import Client
 from utils.get_config import *
-from utils.sysfunctions as usys import count_messages 
+import utils.sysfunctions as usys  
 
 #Inizio della connessione con il db
 db.connect()
@@ -42,7 +42,7 @@ def del_chat(client,message,query):
     Update of message count for a specific saved chat by insert a new record in db
 """
 def update_chat_data(client,message,query):
-    updated_messages = count_messages(client,message,query)
+    updated_messages = usys.count_messages(client,message,query)
     chat_data = DataChats(id_chat = query,Date = datetime.datetime.now(),message_count= updated_messages)
     chat_data.save()
 
@@ -58,7 +58,7 @@ def force_update_chat_data(client,message,query):
      .update({DataChats.message_count : msg_count})
      .where((DataChats.id_chat == userid) &
             (DataChats.message_count == old_msg_count))).execute()
-     return sendMessage(client,message,"__Updated message count for " + str(userid) +"__")
+    return sendMessage(client,message,"__Updated message count for " + str(userid) +"__")
 
 """
     Return list of all saved chats (id,name,username)
@@ -102,7 +102,7 @@ def fetch_chat_info():
 Questa funzione controlla se un certo utente Telegram è SuperAdmin
 """
 def isSuper(id_utente):
-    check = User.select().where((User.id_user == id_utente) 
+    check = User.select().where((User.id_user == id_utente)) 
     for superadmin in check:
         return True
     return False
