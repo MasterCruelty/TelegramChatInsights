@@ -17,6 +17,13 @@ def sendMessage(client,message,result):
     return
 
 """
+Support function to send images
+"""
+@Client.on_message()
+def sendPhoto(client,message,result,caption):
+    client.send_photo(get_chat(message),result,caption=caption,reply_to_message_id=get_id_msg(message))
+
+"""
 Return user id
 """
 def get_id_user(message):
