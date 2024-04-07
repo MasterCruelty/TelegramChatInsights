@@ -9,7 +9,9 @@ import datetime
 #Inizio della connessione con il db
 db.connect()
 
-
+"""
+    This function save a new chat on db
+"""
 @Client.on_message()
 def set_chat(client,message,query):
     json_user = client.get_users(query)
@@ -86,12 +88,7 @@ def all_chat(client,message,query=""):
     return sendMessage(client,message,result)
 
 """
-questa funzione fa una select dalla tabella User e restituisce gli id di tutti gli utenti registratii dentro una lista di int
-clipboard:
-query_sql = (DataChats
-                 .select()
-                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat))
-                 .order_by(DataChats.message_count.desc()))
+    This function fetch all ids and first_names of saved chats
 """
 def fetch_chat_info():
     result_id = []
@@ -120,7 +117,7 @@ def fetch_chat_data():
         return check,result_msg
 
 """
-Questa funzione controlla se un certo utente Telegram è SuperAdmin
+    check if the user is SuperAdmin
 """
 def isSuper(id_utente):
     check = User.select().where((User.id_user == id_utente)) 
