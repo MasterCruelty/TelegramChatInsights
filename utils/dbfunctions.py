@@ -18,8 +18,6 @@ def set_chat(client,message,query):
     username_chat = "@" + str(json_user.username)
     chat = PersonalChats(id_chat = userid,first_name = name,username = username_chat)
     messages = usys.count_messages(client,message,userid)
-    date = datetime.datetime.now()
-    chat_data = DataChats(id_chat = userid, Date = date, message_count = messages)  
     try:
         chat.save()
     except:
@@ -47,7 +45,7 @@ def del_chat(client,message,query):
 """
 def update_chat_data(client,message,query):
     updated_messages = usys.count_messages(client,message,query)
-    date = datetime.datetime.now()
+    date = datetime.datetime.now().date()
     chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
     chat_data.save()
 

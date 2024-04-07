@@ -8,6 +8,7 @@ import utils.sysfunctions as usys
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
+import datetime
 import io
 import tempfile
 matplotlib.use('Agg')
@@ -52,4 +53,4 @@ def new_check_data(client,message,query):
     #get and save current message count for every chat in db
     for i in range(len(ids)):
         udb.update_chat_data(client,message,ids[i])
-    sendMessage(client,message,"__Nuova analisi eseguita in data " + datetime.datetime.now().strftime('%d-%m-%Y'))
+    sendMessage(client,message,"__New check data executed today " + datetime.datetime.now().strftime('%d-%m-%Y'))

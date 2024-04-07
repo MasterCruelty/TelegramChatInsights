@@ -2,6 +2,7 @@ from peewee import *
 import sys
 sys.path.append(sys.path[0] + "/..")
 from utils.get_config import get_config_file
+import utils.sysfunctions as usys
 
 config = get_config_file("config.json")
 id_super_admin = config["id_super_admin"].split(";")
@@ -26,7 +27,7 @@ class PersonalChats(BaseModel):
 
 class DataChats(BaseModel):
     id_chat = ForeignKeyField(PersonalChats)
-    date = DateTimeField()
+    date = DateTimeField(default=usys.get_date_only)
     message_count = IntegerField()
 
 db.connect()
