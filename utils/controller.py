@@ -7,10 +7,10 @@ import utils.get_config as ugc
 
 
 
-dictionary_super = {'/setchat'    : udb.set_user,
-                    '/delchat'    : udb.del_user,
-                    '/listchat'   : udb.list_user,
-                    '/allchat'    : udb.all_user,
+dictionary_super = {'/setchat'    : udb.set_chat,
+                    '/delchat'    : udb.del_chat,
+                    '/listchat'   : udb.list_chat,
+                    '/allchat'    : udb.all_chat,
                     '/restart'    : usys.restart,
                     '/piechart'   : modules.insights.piechart}
 
