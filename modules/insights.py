@@ -4,6 +4,7 @@ import sys
 sys.path.append(sys.path[0] + "/..")
 from utils.get_config import *
 import utils.dbfunctions as udb
+import utils.sysfunctions as usys
 import matplotlib.pyplot as plt
 import matplotlib
 import numpy as np
@@ -19,20 +20,20 @@ plt.style.use('fivethirtyeight')
 """
 def piechart(client,message,query):
     #fetch chat id/first name
-    ids,first_names,message_counts = udb.fetch_chat_info()
-    print(ids)
-    print(first_names)
-    print(message_counts)
+    ids,first_names = udb.fetch_chat_info()
+    message_counts = []
     
     #get and save current message count for every chat in db
     for i in range(len(ids)):
+        message_counts.append(usys.count_messages(client,message,ids[i]))
         udb.update_chat_data(client,message,ids[i])
     
     #prepare piechart as image in RAM
     plt.clf()
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
-    plt.pie(message_counts,labels=first_names)
+    colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
+    plt.pie(message_counts,labels=first_names,colors = colours)
     plt.savefig(temp,format='png')
     temp.seek(0)
     image_file = temp
