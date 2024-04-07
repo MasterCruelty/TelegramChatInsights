@@ -5,6 +5,7 @@ import utils.dbfunctions as udb
 import random
 import time
 import os
+import datetime
 
 
 """
@@ -14,6 +15,9 @@ Return messages count total of the current chat
 def count_messages(client,message,query):
     totmsg = client.search_messages_count(query)
     return totmsg
+
+def get_date_only():
+    return datetime.datetime.now().date()
 
 """
 Return on message the id of the current chat
