@@ -9,7 +9,7 @@ config = get_config_file("config.json")
 api_id = config["api_id"]
 api_hash = config["api_hash"]
 session = config["session_name"]
-comandi_super = config["commands"][2]
+comandi_super = config["commands"][0]
 app = Client(session, api_id, api_hash)
 print("The app is running...")
 
