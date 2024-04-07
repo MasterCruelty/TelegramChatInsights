@@ -20,6 +20,9 @@ plt.style.use('fivethirtyeight')
 def piechart(client,message,query):
     #fetch chat id/first name
     ids,first_names,message_counts = udb.fetch_chat_info()
+    print(ids)
+    print(first_names)
+    print(message_counts)
     
     #get and save current message count for every chat in db
     for i in range(len(ids)):
@@ -29,8 +32,7 @@ def piechart(client,message,query):
     plt.clf()
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
-    colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(ids))]
-    plt.pie(message_counts,labels=first_name,colors=colours)
+    plt.pie(message_counts,labels=first_names)
     plt.savefig(temp,format='png')
     temp.seek(0)
     image_file = temp
