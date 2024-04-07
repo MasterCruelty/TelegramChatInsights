@@ -103,6 +103,23 @@ def fetch_chat_info():
     return result_id,result_name
 
 """
+    Return data about message counts from DataChats
+"""
+def fetch_chat_data():
+    result_msg = []
+    check = False
+    query_sql = (DataChats
+                 .select()
+                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat)))
+    for item in query_sql:
+        result_msg.append(item.message_count)
+    if len(result_msg) <= 1:
+        return check,result_msg
+    else:
+        check = True
+        return check,result_msg
+
+"""
 Questa funzione controlla se un certo utente Telegram è SuperAdmin
 """
 def isSuper(id_utente):

@@ -29,7 +29,11 @@ def count_all_msg(client,message,ids):
 def piechart(client,message,query):
     #fetch chat id/first name
     ids,first_names = udb.fetch_chat_info()
-    message_counts = count_all_msg(client,message,ids)
+    check,all_msg = udb.fetch_chat_data()
+    if check == True:
+        message_counts = all_msg
+    else:
+        message_counts = count_all_msg(client,message,ids)
     
     #prepare piechart as image in RAM
     plt.clf()
