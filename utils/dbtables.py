@@ -30,7 +30,7 @@ class DataChats(BaseModel):
     message_count = IntegerField()
 
 db.connect()
-db.create_tables([User,PersonalChats])
+db.create_tables([User,PersonalChats,DataChats])
 
 #Inizializzo il super admin da file di configurazione
 overlord = User(id_user = id_super_admin[0], name = id_super_admin[1], username = id_super_admin[2])
