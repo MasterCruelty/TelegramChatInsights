@@ -16,7 +16,7 @@ def set_chat(client,message,query):
     name = json_user.first_name
     username_chat = "@" + str(json_user.username)
     chat = PersonalChats(id_chat = userid,first_name = name,username = username_chat)
-    messages = count_messages(client,message,userid)
+    messages = usys.count_messages(client,message,userid)
     chat_data = DataChats(id_chat = userid, Date = datetime.datetime.now(), message_count = messages)  
     try:
         chat.save()
@@ -63,7 +63,7 @@ def force_update_chat_data(client,message,query):
 """
     Return list of all saved chats (id,name,username)
 """ 
-def list_chat(client,message):
+def list_chat(client,message,query=""):
     result = "List of saved chats:\n\n"
     query = PersonalChats.select()
     for user in query:
@@ -73,7 +73,7 @@ def list_chat(client,message):
 """
     Return total number of saved chats
 """
-def all_chat(client,message):
+def all_chat(client,message,query=""):
     result = "Saved chats: "
     count = 0
     query = PersonalChats.select()
