@@ -104,17 +104,21 @@ def fetch_chat_info():
 """
 def fetch_chat_data():
     result_msg = []
+    result_names = []
     check = False
-    query_sql = (DataChats
-                 .select()
-                 .join(PersonalChats, on=(PersonalChats.id_chat == DataChats.id_chat)))
+    query_sql = (PersonalChats
+                 .select(PersonalChats.first_name,DataChats.message_count)
+                 .join(DataChats, on=(DataChats.id_chat == PersonalChats.id_chat))
+                 .order_by(DataChats.message_count.desc())
+                 .group_by(DataChats.id_chat))
     for item in query_sql:
-        result_msg.append(item.message_count)
+        result_names.append(item.first_name)
+        result_msg.append(item.datachats.message_count)
     if len(result_msg) <= 1:
-        return check,result_msg
+        return check,result_msg,result_names
     else:
         check = True
-        return check,result_msg
+        return check,result_msg,result_names
 
 """
     check if the user is SuperAdmin

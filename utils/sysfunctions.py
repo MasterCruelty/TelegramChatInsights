@@ -60,14 +60,14 @@ def restart(client,message):
 """
 documentation of commands directly in Telegram
 """
-def help(query,client,message):
+def help(client,message,query):
     help_file = ugc.get_config_file("help.json")
     if query in help_file:
         help_request = help_file[query][0:]
         help_request = str(help_request).replace("(","").replace(")","").replace('"','').replace(r'\n','\n')
         return ugc.sendMessage(client,message,help_request)
-    elif (query not in help_file) and (query != "/helprob"):
-        help_request = "__**Comando not found**__\n\n"
+    elif (query not in help_file):
+        help_request = "__**Command not found**__\n\n"
         help_request += help_file["default"]
         return ugc.sendMessage(client,message,help_request)
     else:

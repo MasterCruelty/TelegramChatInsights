@@ -16,7 +16,9 @@ matplotlib.use('Agg')
 #set matplotlib style
 plt.style.use('fivethirtyeight')
 
-
+"""
+    Given a list of ids it returns total msg
+"""
 def count_all_msg(client,message,ids):
     result = []
     for i in range(len(ids)):
@@ -24,14 +26,25 @@ def count_all_msg(client,message,ids):
     return result
 
 """
+    Return a leaderboard for saved chats
+"""
+def leadboard(client,message,query=""):
+    check,all_msg,all_names = udb.fetch_chat_data()
+    result = ""
+    for i in range(len(all_msg)):
+        result += str(i+1) + ". " + all_names[i] + ": " + str(all_msg[i]) + "\n"
+    return sendMessage(client,message,result)
+
+"""
     Plot piechart for personal chats
 """
 def piechart(client,message,query):
     #fetch chat id/first name
     ids,first_names = udb.fetch_chat_info()
-    check,all_msg = udb.fetch_chat_data()
+    check,all_msg,all_names = udb.fetch_chat_data()
     if check == True:
         message_counts = all_msg
+        first_names = all_names
     else:
         message_counts = count_all_msg(client,message,ids)
     
