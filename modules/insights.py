@@ -53,7 +53,7 @@ def piechart(client,message,query):
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
     colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
-    plt.pie(message_counts,labels=first_names,colors = colours)
+    plt.pie(message_counts,labels=first_names,colors = colours,autopct='%1.0f')
     plt.savefig(temp,format='png')
     temp.seek(0)
     image_file = temp
