@@ -110,7 +110,8 @@ def fetch_chat_data():
                  .select(PersonalChats.first_name,DataChats.message_count)
                  .join(DataChats, on=(DataChats.id_chat == PersonalChats.id_chat))
                  .order_by(DataChats.message_count.desc())
-                 .group_by(DataChats.id_chat))
+                 .group_by(DataChats.id_chat)
+                 .having(DataChats.date == fn.MAX(DataChats.date)))
     for item in query_sql:
         result_names.append(item.first_name)
         result_msg.append(item.datachats.message_count)
