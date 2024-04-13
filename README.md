@@ -43,7 +43,8 @@ The features of the commands are explained inside ```help.json```. It is the fil
 
 ### Example of execution
 This is an example of piechart plotted. It shows the weight of every chat saved.
-![insights](https://github.com/MasterCruelty/TelegramChatInsights/assets/72561502/6b970a96-86f9-466e-bec5-ff1fd2e3b0e8)
+![image](https://github.com/MasterCruelty/TelegramChatInsights/assets/72561502/1b833ebb-6a47-4a92-8d25-bb994475348c)
+
 
 
 
