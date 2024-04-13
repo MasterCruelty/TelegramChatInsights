@@ -53,7 +53,16 @@ def piechart(client,message,query):
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
     colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
-    plt.pie(message_counts,labels=first_names,colors = colours,autopct='%1.0f')
+    patches,texts, autotexts= plt.pie(message_counts,labels=first_names,colors = colours,autopct='%1.0f%%')
+
+    #I populate labels with actual value if slice worth more than 2%
+    total_messages = sum(message_counts)
+    for label, count in zip(texts, message_counts):
+        percentage = count / total_messages * 100
+        if percentage >= 2:
+            label.set_text(label.get_text() + f'\n{count}')
+
+    #saving image in ram and sending
     plt.savefig(temp,format='png')
     temp.seek(0)
     image_file = temp
