@@ -5,6 +5,7 @@ from pyrogram import Client
 from utils.get_config import *
 import utils.sysfunctions as usys  
 import datetime
+import time
 
 #Inizio della connessione con il db
 db.connect()
@@ -53,6 +54,7 @@ def update_chat_data(client,message,query):
         chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
         chat_data.save()
     else:
+        time.sleep(2)
         return sendMessage(client,message,"__You already saved data today for id: " + str(query) + ".__")
 
 """
