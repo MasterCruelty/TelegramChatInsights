@@ -48,8 +48,12 @@ def del_chat(client,message,query):
 def update_chat_data(client,message,query):
     updated_messages = usys.count_messages(client,message,query)
     date = datetime.datetime.now().date()
-    chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
-    chat_data.save()
+    existing_record = DataChats.select().where((DataChats.date == date) & (DataChats.id_chat == query)).first()
+    if not existing_record:
+        chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
+        chat_data.save()
+    else:
+        return sendMessage(client,message,"__You already saved data today for id: " + str(query) + ".__")
 
 """
     Manually force update of message count for a specific chat
