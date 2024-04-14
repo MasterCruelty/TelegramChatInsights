@@ -38,6 +38,7 @@ The features of the commands are explained inside ```help.json```. It is the fil
 * delete a chat: ```/delchat``` <id_user>
 * How to list all user registered: ```/listchat``` 
 * How to show ho many chats are registered: ```/allchat```
+* How to get all saved data about a specific chat: ```/getchatdata``` <id_chat> 
 * How to update a record value of a chat: ```/updatechat``` <id_chat> <new_value> <old_value>
 * check if the bot is online: ```/ping```
 
