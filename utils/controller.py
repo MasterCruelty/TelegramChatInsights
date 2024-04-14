@@ -10,6 +10,7 @@ import utils.get_config as ugc
 dictionary_super = {'/setchat'    : udb.set_chat,
                     '/delchat'    : udb.del_chat,
                     '/listchat'   : udb.list_chat,
+                    '/getchatdata': udb.fetch_chat_data_by_id,
                     '/allchat'    : udb.all_chat,
                     '/newcheck'   : modules.insights.new_check_data,
                     '/updatechat' : udb.force_update_chat_data,

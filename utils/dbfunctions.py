@@ -5,6 +5,7 @@ from pyrogram import Client
 from utils.get_config import *
 import utils.sysfunctions as usys  
 import datetime
+import time
 
 #Inizio della connessione con il db
 db.connect()
@@ -48,8 +49,13 @@ def del_chat(client,message,query):
 def update_chat_data(client,message,query):
     updated_messages = usys.count_messages(client,message,query)
     date = datetime.datetime.now().date()
-    chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
-    chat_data.save()
+    existing_record = DataChats.select().where((DataChats.date == date) & (DataChats.id_chat == query)).first()
+    if not existing_record:
+        chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
+        chat_data.save()
+    else:
+        time.sleep(2)
+        return sendMessage(client,message,"__You already saved data today for id: " + str(query) + ".__")
 
 """
     Manually force update of message count for a specific chat
@@ -120,6 +126,22 @@ def fetch_chat_data():
     else:
         check = True
         return check,result_msg,result_names
+
+"""
+    Return all data saved about a specific chat
+"""
+def fetch_chat_data_by_id(client,message,query):
+    query_sql = (PersonalChats
+                 .select(PersonalChats.first_name,DataChats.date,DataChats.message_count)
+                 .join(DataChats, on=(DataChats.id_chat == PersonalChats.id_chat))
+                 .where(PersonalChats.id_chat == query)
+                 .order_by(DataChats.date.desc()))
+    result = "Saved data for the requested chat:\n\n" 
+    for item in query_sql:
+        result += "__" + (item.datachats.date).strftime('%d-%m-%Y') + ":__ **" + str(item.datachats.message_count) + "**\n"
+    return sendMessage(client,message,result)
+
+        
 
 """
     check if the user is SuperAdmin
