@@ -122,6 +122,22 @@ def fetch_chat_data():
         return check,result_msg,result_names
 
 """
+    Return all data saved about a specific chat
+"""
+def fetch_chat_data_by_id(client,message,query):
+    query_sql = (PersonalChats
+                 .select(PersonalChats.first_name,DataChats.date,DataChats.message_count)
+                 .join(DataChats, on=(DataChats.id_chat == PersonalChats.id_chat))
+                 .where(PersonalChats.id_chat == query)
+                 .order_by(DataChats.date.desc()))
+    result = "Saved data for the requested chat:\n\n" 
+    for item in query_sql:
+        result += "__" + (item.datachats.date).strftime('%d-%m-%Y') + ":__ **" + str(item.datachats.message_count) + "**\n"
+    return sendMessage(client,message,result)
+
+        
+
+"""
     check if the user is SuperAdmin
 """
 def isSuper(id_utente):
