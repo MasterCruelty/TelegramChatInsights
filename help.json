@@ -1,4 +1,4 @@
 {
-	"insights":"**/leadeboard **=> Return a leaderboard of the saved chats.\n**/piechart ** => It sends a piechart of your personal chats message count.",
+	"insights":"**/leadboard **=> Return a leaderboard of the saved chats.\n**/piechart ** => It sends a piechart of your personal chats message count.",
 	"default": "Look for a kind of command, for example:\n /help 'command'\n__Commands: insights.__"
 }

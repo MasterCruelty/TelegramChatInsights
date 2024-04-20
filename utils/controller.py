@@ -16,7 +16,7 @@ dictionary_super = {'/setchat'    : udb.set_chat,
                     '/updatechat' : udb.force_update_chat_data,
                     '/restart'    : usys.restart,
                     '/help'       : usys.help,
-                    '/leaderboard': modules.insights.leadboard,
+                    '/leadboard': modules.insights.leadboard,
                     '/piechart'   : modules.insights.piechart}
 
 """
