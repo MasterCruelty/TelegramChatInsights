@@ -46,13 +46,21 @@ The features of the commands are explained inside ```help.json```. It is the fil
 This is an example of piechart plotted. It shows the weight of every chat saved.
 ![image](https://github.com/MasterCruelty/TelegramChatInsights/assets/72561502/1b833ebb-6a47-4a92-8d25-bb994475348c)
 
-
+### How data is collected
+There's a dedicated command to do that: ```/newcheck``` <br>
+By launching it, it starts calculating all the amount of messages for every saved chat using Telegram API and save those data with the current date.<br>
+The next time you decide to launch this command, you can view the difference between the last check and the new one.<br>
+At the moment this command is launched manually by the user, thought initially as userbot not running 24/7.<br>
+In the near future it could be instead an automatic check made daily or weekly and then a 24/7 running app.
 
 
 ### Dependencies
 
 * Pyrogram
 * peewee
+* tempfile
+* matplotlib
+* numpy
 
 ### External projects used
 
