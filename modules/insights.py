@@ -52,7 +52,12 @@ def piechart(client,message,query):
     plt.clf()
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
-    colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
+
+    #old palette: colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
+    
+    #I prepare a palette of colours
+    base_colors = ['#0033A0', '#0057D9', '#007BFF', '#60AFFF']
+    colours = base_colors * ((len(first_names) // len(base_colors)) + 1)
     patches,texts, autotexts= plt.pie(message_counts,labels=first_names,colors = colours,autopct='%1.0f%%')
 
     #I populate labels with actual value if slice worth more than 2%
@@ -78,5 +83,8 @@ def new_check_data(client,message,query):
     message_counts = count_all_msg(client,message,ids)
     #get and save current message count for every chat in db
     for i in range(len(ids)):
-        udb.update_chat_data(client,message,ids[i])
-    sendMessage(client,message,"__New check data executed today " + datetime.datetime.now().strftime('%d-%m-%Y'))
+        val = udb.update_chat_data(client,message,ids[i])
+        if val == False:
+            return sendMessage(client,message,"__At least 1 week between two records.__")
+    if val == True:
+        sendMessage(client,message,"__New check data executed today " + datetime.datetime.now().strftime('%d-%m-%Y'))
