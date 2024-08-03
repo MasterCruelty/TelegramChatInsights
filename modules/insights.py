@@ -52,7 +52,12 @@ def piechart(client,message,query):
     plt.clf()
     temp = io.BytesIO()
     plt.figure(figsize=(20,15))
-    colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
+
+    #old palette: colours = [tuple(np.random.choice(range(256), size=3)/256) + (1,) for n in range(len(first_names))]
+    
+    #I prepare a palette of colours
+    base_colors = ['#0033A0', '#0057D9', '#007BFF', '#60AFFF']
+    colours = base_colors * ((len(first_names) // len(base_colors)) + 1)
     patches,texts, autotexts= plt.pie(message_counts,labels=first_names,colors = colours,autopct='%1.0f%%')
 
     #I populate labels with actual value if slice worth more than 2%
