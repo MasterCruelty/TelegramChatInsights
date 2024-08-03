@@ -7,7 +7,7 @@ import utils.sysfunctions as usys
 import datetime
 import time
 
-#Inizio della connessione con il db
+#Starting connection with db
 db.connect()
 
 """
@@ -49,13 +49,16 @@ def del_chat(client,message,query):
 def update_chat_data(client,message,query):
     updated_messages = usys.count_messages(client,message,query)
     date = datetime.datetime.now().date()
-    existing_record = DataChats.select().where((DataChats.date == date) & (DataChats.id_chat == query)).first()
-    if not existing_record:
+    #select record for the id chat in function's argument. I take the most recent one to check timedelta then
+    existing_record = DataChats.select().where(DataChats.id_chat == query).order_by(DataChats.date.desc()).first()
+    delta = abs(date - existing_record.date.date()) 
+    #check timedelta at least 1 week between records
+    if delta >= datetime.timedelta(weeks=1):
         chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
         chat_data.save()
+        return True
     else:
-        time.sleep(2)
-        return sendMessage(client,message,"__You already saved data today for id: " + str(query) + ".__")
+        return False
 
 """
     Manually force update of message count for a specific chat

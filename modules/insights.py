@@ -78,5 +78,8 @@ def new_check_data(client,message,query):
     message_counts = count_all_msg(client,message,ids)
     #get and save current message count for every chat in db
     for i in range(len(ids)):
-        udb.update_chat_data(client,message,ids[i])
-    sendMessage(client,message,"__New check data executed today " + datetime.datetime.now().strftime('%d-%m-%Y'))
+        val = udb.update_chat_data(client,message,ids[i])
+        if val == False:
+            return sendMessage(client,message,"__At least 1 week between two records.__")
+    if val == True:
+        sendMessage(client,message,"__New check data executed today " + datetime.datetime.now().strftime('%d-%m-%Y'))
