@@ -51,7 +51,12 @@ def update_chat_data(client,message,query):
     date = datetime.datetime.now().date()
     #select record for the id chat in function's argument. I take the most recent one to check timedelta then
     existing_record = DataChats.select().where(DataChats.id_chat == query).order_by(DataChats.date.desc()).first()
-    delta = abs(date - existing_record.date.date()) 
+    try:
+        delta = abs(date - existing_record.date.date()) 
+    except AttributeError:
+        chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)
+        chat_data.save()
+        return True
     #check timedelta at least 1 week between records
     if delta >= datetime.timedelta(weeks=1):
         chat_data = DataChats(id_chat = query,date = date,message_count= updated_messages)

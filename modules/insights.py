@@ -79,7 +79,9 @@ def piechart(client,message,query):
     Update data on db about Personal Chats 
 """
 def new_check_data(client,message,query):
+    # I get array of all id and first names of saved chats
     ids,first_names = udb.fetch_chat_info()
+    # I gett array of all message count for every saved chat.
     message_counts = count_all_msg(client,message,ids)
     #get and save current message count for every chat in db
     for i in range(len(ids)):
